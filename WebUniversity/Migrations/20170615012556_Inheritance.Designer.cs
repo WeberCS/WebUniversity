@@ -8,9 +8,10 @@ using WebUniversity.Data;
 namespace WebUniversity.Migrations
 {
     [DbContext(typeof(SchoolContext))]
-    partial class SchoolContextModelSnapshot : ModelSnapshot
+    [Migration("20170615012556_Inheritance")]
+    partial class Inheritance
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
             modelBuilder
                 .HasAnnotation("ProductVersion", "1.1.2")
@@ -89,6 +90,27 @@ namespace WebUniversity.Migrations
                     b.ToTable("Enrollment");
                 });
 
+            modelBuilder.Entity("WebUniversity.Models.Instructor", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("FirstMidName")
+                        .IsRequired()
+                        .HasColumnName("FirstName")
+                        .HasMaxLength(50);
+
+                    b.Property<DateTime>("HireDate");
+
+                    b.Property<string>("LastName")
+                        .IsRequired()
+                        .HasMaxLength(50);
+
+                    b.HasKey("ID");
+
+                    b.ToTable("Instructor");
+                });
+
             modelBuilder.Entity("WebUniversity.Models.OfficeAssignment", b =>
                 {
                     b.Property<int>("InstructorID");
@@ -101,13 +123,12 @@ namespace WebUniversity.Migrations
                     b.ToTable("OfficeAssignment");
                 });
 
-            modelBuilder.Entity("WebUniversity.Models.Person", b =>
+            modelBuilder.Entity("WebUniversity.Models.Student", b =>
                 {
                     b.Property<int>("ID")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<string>("Discriminator")
-                        .IsRequired();
+                    b.Property<DateTime>("EnrollmentDate");
 
                     b.Property<string>("FirstMidName")
                         .IsRequired()
@@ -120,31 +141,7 @@ namespace WebUniversity.Migrations
 
                     b.HasKey("ID");
 
-                    b.ToTable("Person");
-
-                    b.HasDiscriminator<string>("Discriminator").HasValue("Person");
-                });
-
-            modelBuilder.Entity("WebUniversity.Models.Instructor", b =>
-                {
-                    b.HasBaseType("WebUniversity.Models.Person");
-
-                    b.Property<DateTime>("HireDate");
-
-                    b.ToTable("Instructor");
-
-                    b.HasDiscriminator().HasValue("Instructor");
-                });
-
-            modelBuilder.Entity("WebUniversity.Models.Student", b =>
-                {
-                    b.HasBaseType("WebUniversity.Models.Person");
-
-                    b.Property<DateTime>("EnrollmentDate");
-
                     b.ToTable("Student");
-
-                    b.HasDiscriminator().HasValue("Student");
                 });
 
             modelBuilder.Entity("WebUniversity.Models.Course", b =>

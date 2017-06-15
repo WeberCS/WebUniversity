@@ -23,7 +23,7 @@ namespace WebUniversity.Data
             modelBuilder.Entity<OfficeAssignment>().ToTable("OfficeAssignment");
             modelBuilder.Entity<CourseAssignment>().ToTable("CourseAssignment");
             modelBuilder.Entity<Instructor>().ToTable("Instructor");
-
+            modelBuilder.Entity<Person>().ToTable("Person");
             modelBuilder.Entity<CourseAssignment>().HasKey(c => new { c.CourseID, c.InstructorID });
 
 

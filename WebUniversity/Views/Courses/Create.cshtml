@@ -32,12 +32,15 @@
                 <span asp-validation-for="Credits" class="text-danger"></span>
             </div>
         </div>
-        <div class="form-group">
-            <label asp-for="DepartmentID" class="col-md-2 control-label"></label>
-            <div class="col-md-10">
-                <select asp-for="DepartmentID" class ="form-control" asp-items="ViewBag.DepartmentID"></select>
-            </div>
-        </div>
+        <<div class="form-group">
+    <label asp-for="Department" class="col-md-2 control-label"></label>
+    <div class="col-md-10">
+        <select asp-for="DepartmentID" class="form-control" asp-items="ViewBag.DepartmentID">
+            <option value="">-- Select Department --</option>
+        </select>
+        <span asp-validation-for="DepartmentID" class="text-danger" />
+    </div>
+</div>
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
                 <input type="submit" value="Create" class="btn btn-default" />
